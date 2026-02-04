@@ -1,10 +1,9 @@
 
-# Host Nginx reverse-proxy example for this Next.js app (Docker Compose on same VPS)
+# Nginx reverse-proxy example for this Next.js app when Nginx runs in Docker
 #
 # Assumptions:
-# - The container listens on 3000.
-# - docker-compose maps it to localhost only, e.g. 127.0.0.1:3021 -> 3000 (see docker-compose.yml).
-# - Nginx runs on the VPS host (not inside Docker) and routes by domain.
+# - The app is exposed on host port 3022 (ports: 3022:3000 in docker-compose.yml).
+# - Nginx runs in the same Docker network and routes by domain.
 #
 # Install layout example:
 # - /etc/nginx/sites-available/queen-beauty-center
@@ -47,7 +46,7 @@ server {
     }
 
     location / {
-        proxy_pass http://queen_beauty_center_upstream;
+        proxy_pass http://queen_beauty_center_upstream/;
         proxy_http_version 1.1;
 
         proxy_set_header Host $host;

@@ -12,7 +12,7 @@ services:
       - NEXT_TELEMETRY_DISABLED=1
       - PORT=3000
 
-    # Bind to localhost only; host Nginx will reverse-proxy to this port.
+    # Expose host port (optional) and allow Dockerized Nginx to reverse-proxy.
     # Change 3022 if it conflicts with other apps on the same VPS.
     ports:
       - "3022:3000"
