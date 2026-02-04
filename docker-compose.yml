@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mlgg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: mlgg-app
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - NEXT_TELEMETRY_DISABLED=1
+      - PORT=3000
+
+    # Bind to localhost only; host Nginx will reverse-proxy to this port.
+    # Change 3021 if it conflicts with other apps on the same VPS.
+    ports:
+      - "127.0.0.1:3021:3000"
+    
+    networks:
+      - webapps
+
+networks:
+  webapps:
+    driver: bridge

@@ -1,0 +1,82 @@
+
+# Host Nginx reverse-proxy example for this Next.js app (Docker Compose on same VPS)
+#
+# Assumptions:
+# - The container listens on 3000.
+# - docker-compose maps it to localhost only, e.g. 127.0.0.1:3021 -> 3000 (see docker-compose.yml).
+# - Nginx runs on the VPS host (not inside Docker) and routes by domain.
+#
+# Install layout example:
+# - /etc/nginx/sites-available/queen-beauty-center
+# - ln -s /etc/nginx/sites-available/queen-beauty-center /etc/nginx/sites-enabled/queen-beauty-center
+
+upstream queen_beauty_center_upstream {
+    server 127.0.0.1:3021;
+    keepalive 32;
+}
+
+# HTTP -> HTTPS redirect (recommended)
+server {
+    listen 80;
+    server_name queen.example.com;  # TODO: set your real domain
+    return 301 https://$host$request_uri;
+}
+
+# HTTPS vhost
+server {
+    listen 443 ssl http2;
+    server_name queen.example.com;  # TODO: set your real domain
+
+    # Managed by certbot (recommended)
+    # ssl_certificate /etc/letsencrypt/live/queen.example.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/queen.example.com/privkey.pem;
+    # include /etc/letsencrypt/options-ssl-nginx.conf;
+    # ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    client_max_body_size 10M;
+
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+
+    # Static assets: cache aggressively (hashed filenames)
+    location ^~ /_next/ {
+        proxy_pass http://queen_beauty_center_upstream;
+        proxy_http_version 1.1;
+
+        expires 365d;
+        add_header Cache-Control "public, immutable";
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    location / {
+        proxy_pass http://queen_beauty_center_upstream;
+        proxy_http_version 1.1;
+
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Safe defaults for Next.js (and future WS usage)
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        proxy_connect_timeout 30s;
+        proxy_send_timeout 60s;
+        proxy_read_timeout 60s;
+    }
+
+    location ~ /\. {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+    access_log /var/log/nginx/queen-beauty-center_access.log;
+    error_log /var/log/nginx/queen-beauty-center_error.log warn;
+}
