@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  mlgg:
+  queen:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: mlgg-app
+    container_name: queen-app
     restart: unless-stopped
     environment:
       - NODE_ENV=production
@@ -13,9 +13,9 @@ services:
       - PORT=3000
 
     # Bind to localhost only; host Nginx will reverse-proxy to this port.
-    # Change 3021 if it conflicts with other apps on the same VPS.
+    # Change 3022 if it conflicts with other apps on the same VPS.
     ports:
-      - "127.0.0.1:3021:3000"
+      - "3022:3000"
     
     networks:
       - webapps
