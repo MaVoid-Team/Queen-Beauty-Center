@@ -1,30 +1,35 @@
-# Premium beauty website
+# Al-Malika Atelier & Beauty Center
 
-*Automatically synced with your [v0.app](https://v0.app) deployments*
+A bilingual marketing site for a premium salon — dark gold interiors, a services menu, a dress gallery, and a booking CTA that feels like the brand.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/israafrahat2015-9810s-projects/v0-queen-beauty-center)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/s49SMUpNkdo)
+![The Al-Malika salon floor](public/images/hero.jpg)
 
-## Overview
+## Who it’s for
 
-This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
+Salon and atelier owners who want a public site that looks like the room — Arabic-first, English a tap away — so brides and walk-in clients can browse the look, then actually book.
 
-## Deployment
+## What you can do
 
-Your project is live at:
+- Browse bridal makeup, hair, skincare, nails, lashes, brows, henna, and party looks in one services grid
+- Flip through the atelier dress gallery (view-only, so the gowns stay the star)
+- Book from the homepage or contact form — WhatsApp, a call, or a request with a preferred time
+- Switch Arabic ↔ English without the layout falling apart
+- Show the work: salon floor, finished looks, and gowns instead of a generic template
 
-**[https://vercel.com/israafrahat2015-9810s-projects/v0-queen-beauty-center](https://vercel.com/israafrahat2015-9810s-projects/v0-queen-beauty-center)**
+![Bridal makeup at the chair](public/images/services/bridal-makeup.jpg)
 
-## Build your app
+![Atelier gown on the floor](public/images/dresses/dress-1.jpg)
 
-Continue building your app on:
+## Try it
 
-**[https://v0.app/chat/s49SMUpNkdo](https://v0.app/chat/s49SMUpNkdo)**
+The live site is at **[queen-beauty-center.vercel.app](https://queen-beauty-center.vercel.app)**.
 
-## How It Works
+## How it works
 
-1. Create and modify your project using [v0.app](https://v0.app)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+Four public pages — home, services, dresses, and contact — with AR/EN copy in one dictionary and CTAs that go to the form or WhatsApp. Images ship with the repo, so the gold-and-black look stays fast and on-brand.
+
+---
+
+Built by [Ziad Ahmed](https://github.com/Ziad-NasrEldin) at [MaVoid](https://mavoid.com).
+
+[Website](https://mavoid.com) · [LinkedIn](https://linkedin.com/in/ziad-ahmed-634202332) · [GitHub](https://github.com/Ziad-NasrEldin)
